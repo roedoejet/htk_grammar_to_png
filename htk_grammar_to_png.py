@@ -23,12 +23,9 @@ class Grammar:
         self.nodes = {x[0]: x[1] for x in re.findall(self.state_pattern, self.data)}
         self.arcs = re.findall(self.arc_pattern, self.data)
 
-    def create_graph(self, ftype, null):
+    def create_graph(self, ftype):
         G = nx.DiGraph()
         nodes = self.nodes.keys()
-        if not null:
-            null_nodes = [x == '!NULL' for x in self.nodes.values()]
-            nodes = [x for i, x in enumerate(nodes) if not null_nodes[i]]
         G.add_nodes_from(nodes)
         nx.set_node_attributes(G, self.nodes, "label")
         G.nodes(data=True)
@@ -54,15 +51,8 @@ if __name__ == "__main__":
         choices=["svg", "png"],
         help="Type of file to render",
     )
-    parser.add_argument(
-        "--null",
-        "-n",
-        action="store_true",
-        default=False,
-        help="Show null nodes",
-    )
     parser.add_argument("grammar", nargs="?", help="The grammar to be rendered")
     args = parser.parse_args()
     grammar = Grammar(args.grammar)
     grammar.parse()
-    grammar.create_graph(args.filetype, null=args.null)
+    grammar.create_graph(args.filetype)
