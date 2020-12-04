@@ -36,9 +36,9 @@ class Grammar:
         pdot = nx.drawing.nx_pydot.to_pydot(G)
         pdot.set_rankdir('LR')
         if ftype == "png":
-            pdot.write_png(f"{self.path}multi.png")
+            pdot.write_png(f"{self.path}.png")
         elif ftype == "svg":
-            pdot.write_svg(f"{self.path}multi.svg")
+            pdot.write_svg(f"{self.path}.svg")
 
 
 if __name__ == "__main__":
