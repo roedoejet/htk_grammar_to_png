@@ -32,7 +32,9 @@ class Grammar:
         for arc in self.arcs:
             if arc[0] in nodes and arc[1] in nodes:
                 G.add_edge(arc[0], arc[1])
+        
         pdot = nx.drawing.nx_pydot.to_pydot(G)
+        pdot.set_rankdir('LR')
         if ftype == "png":
             pdot.write_png(f"{self.path}multi.png")
         elif ftype == "svg":
